@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Siswa extends Model
 {
     protected $fillable = ['nama', 'nis', 'kelas', 'jurusan_id'];
-
-    public function jurusan()
+   public function jurusan()
     {
-        return $this->belongsTo(Jurusan::class);
+        return $this->belongsTo(Jurusan::class, 'jurusan_id');
     }
+    
 }

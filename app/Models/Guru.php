@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Guru extends Model
 {
-    use HasFactory;
-
     protected $fillable = ['nama', 'nip', 'jurusan'];
 
     public function jurusans()
     {
-        return $this->hasMany(Jurusan::class);
+        return $this->hasMany(Jurusan::class, 'guru_id');
     }
 }

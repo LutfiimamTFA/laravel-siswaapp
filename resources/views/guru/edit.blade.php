@@ -17,11 +17,15 @@
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">NIP</label>
                 <input type="text" name="nip" value="{{ $guru->nip }}" class="w-full border px-3 py-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
             </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Jurusan</label>
-                <input type="text" name="Jurusan" value="{{ $guru->jurusan }}" class="w-full border px-3 py-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-            </div>
+<div>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Jurusan</label>
+    <input 
+        type="text" 
+        name="jurusan" 
+        value="{{ $guru->jurusan }}" 
+        class="w-full border px-3 py-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+    >
+</div>
 
             <div class="flex gap-4 pt-4">
                 <a href="{{ route('guru.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">Kembali</a>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use App\Models\Jurusan;
+
+use App\Models\Guru;
 use Illuminate\Http\Request;
 
 class SiswaController extends Controller
@@ -25,13 +27,22 @@ public function index(Request $request)
     return view('siswa.index', compact('siswas', 'daftarKelas'));
 }
 
+public function create()
+{
+    $jurusans = \App\Models\Jurusan::with('guru')->get();
+    return view('siswa.create', compact('jurusans'));
+}
 
-    public function create()
-    {
-        // Ambil semua jurusan beserta guru pengampu-nya
-        $jurusans = Jurusan::with('guru')->get();
-        return view('siswa.create', compact('jurusans'));
-    }
+public function getDetailJurusan($id)
+{
+    $jurusan = \App\Models\Jurusan::with('guru')->findOrFail($id);
+    return response()->json([
+        'kelas' => $jurusan->kelas,
+        'guru_id' => $jurusan->guru_id,
+        'guru_nama' => $jurusan->guru->nama ?? null
+    ]);
+}
+
 
     public function store(Request $request)
     {
@@ -50,11 +61,11 @@ public function index(Request $request)
         return redirect()->route('siswa.index')->with('success', 'Siswa berhasil ditambahkan.');
     }
 
-    public function edit(Siswa $siswa)
-    {
-        $jurusans = Jurusan::with('guru')->get();
-        return view('siswa.edit', compact('siswa', 'jurusans'));
-    }
+public function edit(Siswa $siswa)
+{
+    $jurusans = Jurusan::with('guru')->get();
+    return view('siswa.edit', compact('siswa', 'jurusans'));
+}
 
     public function update(Request $request, Siswa $siswa)
     {
@@ -86,5 +97,20 @@ public function index(Request $request)
 
     return view('siswa.by-kelas', compact('siswas', 'kelas'));
 }
+public function byKelas($kelas)
+{
+    $siswa = Siswa::whereHas('jurusan', function($q) use ($kelas) {
+        $q->where('kelas', $kelas);
+    })->get();
+
+    return view('siswa.byKelas', compact('siswa', 'kelas'));
+}
+public function laporan()
+{
+    $data = Siswa::with(['jurusan.guru'])->get();
+
+    return view('laporan.siswaKelasGuru', compact('data'));
+}
+
 
 }

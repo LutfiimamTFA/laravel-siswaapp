@@ -9,6 +9,7 @@
         <form action="{{ route('siswa.store') }}" method="POST" class="space-y-6 bg-white dark:bg-gray-800 p-6 rounded shadow">
             @csrf
 
+            {{-- Nama Siswa --}}
             <div>
                 <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Nama</label>
                 <input 
@@ -20,6 +21,7 @@
                 >
             </div>
 
+            {{-- NIS --}}
             <div>
                 <label for="nis" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">NIS</label>
                 <input 
@@ -31,8 +33,9 @@
                 >
             </div>
 
+            {{-- Jurusan --}}
             <div>
-                <label for="jurusan_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Jurusan & Kelas</label>
+                <label for="jurusan_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Jurusan</label>
                 <select 
                     name="jurusan_id" 
                     id="jurusan_id"
@@ -42,12 +45,49 @@
                     <option value="">-- Pilih Jurusan --</option>
                     @foreach($jurusans as $jurusan)
                         <option value="{{ $jurusan->id }}">
-                            Kelas {{ $jurusan->kelas }} - {{ $jurusan->guru->jurusan }} ({{ $jurusan->guru->nama ?? 'Tanpa Guru' }})
+                {{ $jurusan->guru->jurusan }}
                         </option>
                     @endforeach
                 </select>
             </div>
 
+            {{-- Kelas --}}
+            <div>
+                <label for="kelas_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Kelas</label>
+                <select 
+                    name="kelas_id" 
+                    id="kelas_id"
+                    class="w-full bg-white dark:bg-gray-700 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                >
+                    <option value="">-- Pilih Kelas --</option>
+                    @foreach($jurusans as $jurusan)
+                        <option value="{{ $jurusan->id }}">
+                            Kelas {{ $jurusan->kelas }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Guru --}}
+            <div>
+                <label for="guru_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Guru</label>
+                <select 
+                    name="guru_id" 
+                    id="guru_id"
+                    class="w-full bg-white dark:bg-gray-700 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                >
+                    <option value="">-- Pilih Guru --</option>
+                    @foreach($jurusans as $jurusan)
+                        <option value="{{ $jurusan->guru->id ?? '' }}">
+                            {{ $jurusan->guru->nama ?? 'Tanpa Guru' }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Tombol --}}
             <div class="pt-4 flex items-center gap-4">
                 <a href="{{ route('siswa.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded shadow">
                     Kembali

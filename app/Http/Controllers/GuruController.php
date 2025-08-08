@@ -54,4 +54,13 @@ class GuruController extends Controller
         $guru->delete();
         return redirect()->route('guru.index')->with('success', 'Guru berhasil dihapus');
     }
+    public function byKelas($kelas)
+{
+    $guru = Guru::whereHas('jurusan', function($q) use ($kelas) {
+        $q->where('kelas', $kelas);
+    })->get();
+
+    return view('guru.byKelas', compact('guru', 'kelas'));
+}
+
 }

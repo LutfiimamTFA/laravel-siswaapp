@@ -10,37 +10,82 @@
             @csrf
             @method('PUT')
 
+            <!-- Nama -->
             <div>
                 <label for="nama" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Nama</label>
                 <input 
                     type="text" 
                     name="nama" 
                     id="nama" 
-                    value="{{ $siswa->nama }}" 
+                    value="{{ old('nama', $siswa->nama) }}" 
                     class="w-full bg-white dark:bg-gray-700 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
                 >
             </div>
 
+            <!-- NIS -->
             <div>
                 <label for="nis" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">NIS</label>
                 <input 
                     type="text" 
                     name="nis" 
                     id="nis" 
-                    value="{{ $siswa->nis }}" 
+                    value="{{ old('nis', $siswa->nis) }}" 
                     class="w-full bg-white dark:bg-gray-700 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
                 >
             </div>
 
+            <!-- Pilih Jurusan / Kelas -->
             <div>
-                <label for="kelas" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Kelas</label>
-                <input 
-                    type="text" 
-                    name="kelas" 
-                    id="kelas" 
-                    value="{{ $siswa->kelas }}" 
-                    class="w-full bg-white dark:bg-gray-700 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <label for="jurusan_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Kelas / Jurusan</label>
+                <select 
+                    name="jurusan_id" 
+                    id="jurusan_id"
+                    class="w-full bg-white dark:bg-gray-700 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded px-3 py-2"
+                    required
                 >
+                    <option value="">-- Jurusan --</option>
+                    @foreach($jurusans as $jurusan)
+                        <option value="{{ $jurusan->id }}" {{ old('jurusan_id', $siswa->jurusan_id) == $jurusan->id ? 'selected' : '' }}>
+                              {{ $jurusan->guru->jurusan }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+  <!-- Pilih Jurusan / Kelas -->
+            <div>
+                <label for="jurusan_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Kelas / Jurusan</label>
+                <select 
+                    name="jurusan_id" 
+                    id="jurusan_id"
+                    class="w-full bg-white dark:bg-gray-700 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded px-3 py-2"
+                    required
+                >
+                    <option value="">-- Guru --</option>
+                    @foreach($jurusans as $jurusan)
+                        <option value="{{ $jurusan->id }}" {{ old('jurusan_id', $siswa->jurusan_id) == $jurusan->id ? 'selected' : '' }}>
+                   {{ $jurusan->guru->nama ?? 'Tanpa Guru' }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+  <!-- Pilih Jurusan / Kelas -->
+            <div>
+                <label for="jurusan_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Kelas / Jurusan</label>
+                <select 
+                    name="jurusan_id" 
+                    id="jurusan_id"
+                    class="w-full bg-white dark:bg-gray-700 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded px-3 py-2"
+                    required
+                >
+                    <option value="">-- Pilih Kelas --</option>
+                    @foreach($jurusans as $jurusan)
+                        <option value="{{ $jurusan->id }}" {{ old('jurusan_id', $siswa->jurusan_id) == $jurusan->id ? 'selected' : '' }}>
+                            {{ $jurusan->kelas }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="pt-4 flex items-center gap-4">

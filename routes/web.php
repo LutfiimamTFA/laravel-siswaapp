@@ -6,6 +6,9 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\LaporanController;
+use App\Livewire\Siswa\Index;
+use App\Livewire\Siswa\Create;
+use App\Livewire\Siswa\Edit;
 
 
 Route::get('/', function () {
@@ -40,6 +43,14 @@ Route::get('/laporan/siswa/jurusan/{jurusanId}', [LaporanController::class, 'sis
 // AJAX untuk ambil data kelas dan guru
 Route::get('/get-kelas/{jurusan_id}', [SiswaController::class, 'getKelas']);
 Route::get('/get-guru/{kelas_id}', [SiswaController::class, 'getGuru']);
+
+
+
+
+
+Route::get('/siswa', Index::class)->name('siswa.index');
+Route::get('/siswa/create', Create::class)->name('siswa.create');
+
 });
 
 require __DIR__.'/auth.php';
